@@ -56,6 +56,11 @@ public class UsuarioController {
 	@PostMapping(value = "/", produces = "application/json")
 	public ResponseEntity<List<Usuario>> CriarUsuario(@RequestBody Usuario usuario) {
 
+		for (int pos = 0; pos < usuario.getTelefones().size(); pos++) {
+
+			usuario.getTelefones().get(pos).setUsuario(usuario);
+		}
+
 		usuarioRepository.save(usuario);
 
 		List<Usuario> usuarios = (List<Usuario>) usuarioRepository.findAll();
@@ -73,6 +78,11 @@ public class UsuarioController {
 
 	@PutMapping(value = "/", produces = "application/json")
 	public ResponseEntity<Usuario> AlterarUsuario(@RequestBody Usuario usuario) {
+
+		for (int pos = 0; pos < usuario.getTelefones().size(); pos++) {
+
+			usuario.getTelefones().get(pos).setUsuario(usuario);
+		}
 
 		Usuario user = usuarioRepository.save(usuario);
 
