@@ -69,11 +69,17 @@ public class UsuarioController {
 	}
 
 	@DeleteMapping(value = "/{id}", produces = "application/json")
-	public ResponseEntity<String> deletarUsuario(@PathVariable Long id) {
-
+	public ResponseEntity<?> deletarUsuario(@PathVariable Long id) {
+		
+		if(!usuarioRepository.existsById(id)) {
+			
+			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+			
+		}
+		
 		usuarioRepository.deleteById(id);
 
-		return new ResponseEntity<String>("Usuário deletado com sucesso", HttpStatus.OK);
+		return new ResponseEntity<String>("Usuário deletado", HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/", produces = "application/json")
