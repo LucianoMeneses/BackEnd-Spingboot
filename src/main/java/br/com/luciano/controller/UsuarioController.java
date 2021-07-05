@@ -30,7 +30,7 @@ public class UsuarioController {
 
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 
-		if (usuario.isEmpty()) {
+		if (!usuario.isPresent()) {
 
 			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
 		}
@@ -83,7 +83,7 @@ public class UsuarioController {
 
 			usuario.getTelefones().get(pos).setUsuario(usuario);
 		}
-
+		
 		Usuario user = usuarioRepository.save(usuario);
 
 		return new ResponseEntity<Usuario>(user, HttpStatus.CREATED);
